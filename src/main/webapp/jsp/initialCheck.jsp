@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1" import="connection.*"%>
+<%@ page import="java.io.*,java.util.*,java.sql.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,7 @@
 <title>LoginCheck</title>
 </head>
 <body>
+	
 	<%
 	
 	try{
@@ -22,7 +24,7 @@
 				if((cookie.getName().indexOf("food"))!=-1){//find special format cookie 
 					response.sendRedirect("showCookie.jsp?username="+cookie.getName());
 				}else{
-					response.sendRedirect("../html/login2.html");
+					response.sendRedirect("../jsp/login2.jsp");
 				}
 				
 			}
