@@ -20,7 +20,7 @@
 				out.print(cookie.getName()+" ");
 				out.print("<br>");
 				if((cookie.getName().indexOf("nyufoodproject"))!=-1){//find special format cookie 
-					response.sendRedirect("showCookie.jsp?username="+cookie.getName());
+					response.sendRedirect("showCookie.jsp?username="+cookie.getName().substring(13));
 				}else{
 					response.sendRedirect("../html/login2.html");
 				}
