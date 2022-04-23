@@ -21,10 +21,10 @@
 			for(Cookie cookie: cookies){
 				out.print(cookie.getName()+" ");
 				out.print("<br>");
-				if((cookie.getName().indexOf("food"))!=-1){//find special format cookie 
+				if((cookie.getName().indexOf("nyufoodproject"))!=-1){//find special format cookie 
 					response.sendRedirect("showCookie.jsp?username="+cookie.getName());
 				}else{
-					response.sendRedirect("../jsp/login2.jsp");
+					response.sendRedirect("../html/login2.html");
 				}
 				
 			}
