@@ -105,7 +105,12 @@
 							<span>
 							<% 
 							String username = request.getParameter("username");
-							out.print(username);
+							
+							if(username==null){
+								out.print("Not Login");
+							}else{
+								out.print(username);
+							}
 							%></span></a>
 <!-- 							username here ！ -->
 						<div class="dropdown-menu">
