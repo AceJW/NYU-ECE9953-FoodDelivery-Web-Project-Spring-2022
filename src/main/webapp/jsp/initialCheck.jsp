@@ -11,21 +11,19 @@
 	
 	try{
 		String referer = request.getHeader("Referer");
-		out.print(referer);
+// 		out.print(referer);
 		if((referer.indexOf("html/login.html"))!=-1){
-			out.print("From 1st login");
-			out.print("<br>");
+// 			out.print("From 1st login");
+// 			out.print("<br>");
 			Cookie [] cookies =request.getCookies();
 			for(Cookie cookie: cookies){
-				out.print(cookie.getName()+" ");
-				out.print("<br>");
+// 				out.print(cookie.getName()+" ");
+// 				out.print("<br>");
 				if((cookie.getName().indexOf("nyufoodproject"))!=-1){//find special format cookie 
-					response.sendRedirect("showCookie.jsp?username="+cookie.getName().substring(13));
-				}else{
-					response.sendRedirect("../html/login2.html");
+					response.sendRedirect("../index.jsp?username="+cookie.getName().substring(14));
 				}
-				
 			}
+			response.sendRedirect("../html/login2.html");
 		}
 	}catch (Exception ex) {
 		out.print(ex);

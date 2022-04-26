@@ -13,18 +13,14 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no"
 >
 <meta
-	name="description"
-	content="FooYes - Quality delivery or takeaway food"
->
-<meta
 	name="author"
 	content="Ansonika"
 >
-<title>FooYes - Quality delivery or takeaway food</title>
+<title>Index</title>
 <!-- Favicons-->
 <link
 	rel="shortcut icon"
-	href="img/favicon.ico"
+	href="img/favicon1.ico"
 	type="image/x-icon"
 >
 <link
@@ -75,14 +71,18 @@
 	rel="stylesheet"
 >
 </head>
-<body>
+<body
+	data-spy="scroll"
+	data-target="#secondary_nav"
+	data-offset="75"
+>
 	<header class="header black_nav clearfix element_to_stick">
 		<div class="container">
 			<div id="logo">
-				<a href="index.html"><img
+				<a href="index.jsp"><img
 					src="img/logo_sticky.svg"
-					width="162"
-					height="35"
+					width="350"
+					height="100"
 					alt=""
 				></a>
 			</div>
@@ -103,15 +103,28 @@
 								>
 							</figure>
 							<span>
-							<% 
-							String username = request.getParameter("username");
-							
-							if(username==null){
-								out.print("Not Login");
-							}else{
-								out.print(username);
-							}
-							%></span></a>
+						<% 
+// 								Cookie&url username double checker
+								String username = null;
+								Cookie [] cookies =request.getCookies();
+								if(cookies!=null){
+									for(Cookie cookie: cookies){
+										if((cookie.getName().indexOf("nyufoodproject"))!=-1){//find special format cookie 
+											username=cookie.getName().substring(14);
+											out.print(username+", ");
+										}
+									}
+								}
+								if(username == null || username.equals("null")){
+									username = request.getParameter("username");
+									if(username==null || username.equals("null")){
+										out.print("Not Login, ");
+									}else{
+										out.print(username+", ");
+									}
+								}
+								%>
+							</span></a>
 <!-- 							username here ！ -->
 						<div class="dropdown-menu">
 							<div class="dropdown-menu-content">
@@ -119,7 +132,16 @@
 									<li><a href="#0"><i class="icon_cog"></i>Dashboard</a></li>
 									<li><a href="#0"><i class="icon_document"></i>Bookings</a></li>
 									<li><a href="#0"><i class="icon_heart"></i>Wish List</a></li>
-									<li><a href="#0"><i class="icon_key"></i>Log out</a></li>
+									<% 
+									if(username!=null){
+									%>	<li><a href="jsp/logOut.jsp"><i class="icon_key"></i>Log out</a></li>
+									<% 
+									}else{
+									%> 
+										<li><a href="html/login2.html"><i class="icon_key"></i>Log in</a></li>
+									<%					
+									}
+									%>
 								</ul>
 							</div>
 						</div>
@@ -136,10 +158,10 @@
 					<a
 						href="#0"
 						class="open_close"
-					><i class="icon_close"></i><span>Menu</span></a><a href="index.html"><img
+					><i class="icon_close"></i><span>Menu</span></a><a href="index.jsp"><img
 						src="img/logo.svg"
-						width="162"
-						height="35"
+						width="350"
+						height="100"
 						alt=""
 					></a>
 				</div>
@@ -149,7 +171,7 @@
 						class="show-submenu"
 					>Home</a>
 					<ul>
-							<li><a href="index.html">Address Autocomplete</a></li>
+							<li><a href="index.jsp">Address Autocomplete</a></li>
 							<li><a href="index-2.html">Search by Keyword</a></li>
 							<li><a href="index-3.html">Home Version 2</a></li>
 							<li><a href="index-4.html">Video Background</a></li>
@@ -164,7 +186,7 @@
 					<ul>
 							<li class="third-level"><a href="#0">List pages</a>
 							<ul>
-									<li><a href="grid-listing-filterscol.html">List
+									<li><a href="discover.jsp">List
 											default</a></li>
 									<li><a href="grid-listing-filterscol-map.html">List
 											with map</a></li>
@@ -198,17 +220,20 @@
 					>Other Pages</a>
 					<ul>
 							<li><a href="404.html">404 Error</a></li>
-							<li><a href="help.html">Help and Faq</a></li>
+							<li>
+							<form method="get" action="jsp/AskQuestionProcess.jsp">
+							<a href="jsp/AskQuestionProcess.jsp?username=<%=username%>">help</a>
+							</form>
+							</li>
 							<li><a href="blog.html">Blog</a></li>
 							<li><a href="leave-review.html">Leave a review</a></li>
 							<li><a href="contacts.html">Contacts</a></li>
-							<li><a href="coming_soon/index.html">Coming Soon</a></li>
+							<li><a href="coming_soon/index.jsp">Coming Soon</a></li>
 							<li><a href="register.html">Sign Up</a></li>
 							<li><a href="icon-pack-1.html">Icon Pack 1</a></li>
 							<li><a href="icon-pack-2.html">Icon Pack 2</a></li>
 							<li><a href="shortcodes.html">Shortcodes</a></li>
 						</ul></li>
-<!-- 					<li><a href="#0">Buy this template</a></li> -->
 				</ul>
 			</nav>
 		</div>
@@ -222,18 +247,20 @@
 						<div class="col-xl-6 col-lg-8">
 							<h1>Delivery or Takeaway Food</h1>
 							<p>The best restaurants at the best price</p>
+<!-- 							search bar -->
 							<form
 								method="post"
-								action="grid-listing-filterscol.html"
+								action="discover.jsp?username=<%=username%>"
 							>
 								<div class="row no-gutters custom-search-input">
 									<div class="col-lg-10">
 										<div class="form-group">
 											<input
+												name="filter"
 												class="form-control no_border_r"
 												type="text"
 												id="autocomplete"
-												placeholder="Address, neighborhood..."
+												placeholder="Dishes, restaurants or cuisines"
 											>
 										</div>
 									</div>
@@ -246,13 +273,6 @@
 								</div>
 								<!-- /row -->
 								<div class="search_trends">
-									<h5>Trending:</h5>
-									<ul>
-										<li><a href="#0">Sushi</a></li>
-										<li><a href="#0">Burgher</a></li>
-										<li><a href="#0">Chinese</a></li>
-										<li><a href="#0">Pizza</a></li>
-									</ul>
 								</div>
 							</form>
 						</div>
@@ -272,9 +292,8 @@
 			<!-- /main_title -->
 			<div class="owl-carousel owl-theme categories_carousel">
 				<div class="item_version_2">
-					<a href="grid-listing-filterscol.html"><figure>
-							<span>98</span>
-							<img
+					<a href="discover.jsp"><figure>
+							<span>98</span>							<img
 								src="img/home_cat_placeholder.jpg"
 								data-src="img/home_cat_pizza.jpg"
 								alt=""
@@ -282,13 +301,11 @@
 							>
 							<div class="info">
 								<h3>Pizza</h3>
-								<small>Avg price $40</small>
 							</div>
 						</figure></a>
 				</div>
 				<div class="item_version_2">
-					<a href="grid-listing-filterscol.html"><figure>
-							<span>87</span>
+					<a href="discover.jsp"><figure>
 							<img
 								src="img/home_cat_placeholder.jpg"
 								data-src="img/home_cat_sushi.jpg"
@@ -297,13 +314,11 @@
 							>
 							<div class="info">
 								<h3>Japanese</h3>
-								<small>Avg price $50</small>
 							</div>
 						</figure></a>
 				</div>
 				<div class="item_version_2">
-					<a href="grid-listing-filterscol.html"><figure>
-							<span>55</span>
+					<a href="discover.jsp"><figure>
 							<img
 								src="img/home_cat_placeholder.jpg"
 								data-src="img/home_cat_hamburgher.jpg"
@@ -312,13 +327,11 @@
 							>
 							<div class="info">
 								<h3>Burghers</h3>
-								<small>Avg price $55</small>
 							</div>
 						</figure></a>
 				</div>
 				<div class="item_version_2">
-					<a href="grid-listing-filterscol.html"><figure>
-							<span>55</span>
+					<a href="discover.jsp"><figure>
 							<img
 								src="img/home_cat_placeholder.jpg"
 								data-src="img/home_cat_vegetarian.jpg"
@@ -327,13 +340,11 @@
 							>
 							<div class="info">
 								<h3>Vegetarian</h3>
-								<small>Avg price $40</small>
 							</div>
 						</figure></a>
 				</div>
 				<div class="item_version_2">
-					<a href="grid-listing-filterscol.html"><figure>
-							<span>65</span>
+					<a href="discover.jsp"><figure>
 							<img
 								src="img/home_cat_placeholder.jpg"
 								data-src="img/home_cat_bakery.jpg"
@@ -342,13 +353,11 @@
 							>
 							<div class="info">
 								<h3>Bakery</h3>
-								<small>Avg price $60</small>
 							</div>
 						</figure></a>
 				</div>
 				<div class="item_version_2">
-					<a href="grid-listing-filterscol.html"><figure>
-							<span>25</span>
+					<a href="discover.jsp"><figure>
 							<img
 								src="img/home_cat_placeholder.jpg"
 								data-src="img/home_cat_chinesse.jpg"
@@ -357,13 +366,11 @@
 							>
 							<div class="info">
 								<h3>Chinese</h3>
-								<small>Avg price $40</small>
 							</div>
 						</figure></a>
 				</div>
 				<div class="item_version_2">
-					<a href="grid-listing-filterscol.html"><figure>
-							<span>35</span>
+					<a href="discover.jsp"><figure>
 							<img
 								src="img/home_cat_placeholder.jpg"
 								data-src="img/home_cat_mexican.jpg"
@@ -372,7 +379,6 @@
 							>
 							<div class="info">
 								<h3>Mexican</h3>
-								<small>Avg price $35</small>
 							</div>
 						</figure></a>
 				</div>
@@ -386,7 +392,6 @@
 					<span><em></em></span>
 					<h2>Top Rated Restaurants</h2>
 					<p>Cum doctus civibus efficiantur in imperdiet deterruisset.</p>
-					<a href="#0">View All &rarr;</a>
 				</div>
 				<div class="row add_bottom_25">
 					<div class="col-lg-6">
@@ -407,8 +412,6 @@
 									<h3>La Monnalisa</h3>
 										<small>8 Patriot Square E2 9NF</small>
 									<ul>
-											<li><span class="ribbon off">-30%</span></li>
-											<li>Average price $35</li>
 										</ul></a></li>
 								<li><a href="detail-restaurant.html"><figure>
 											<img
@@ -425,8 +428,6 @@
 									<h3>Alliance</h3>
 										<small>27 Old Gloucester St,4563</small>
 									<ul>
-											<li><span class="ribbon off">-40%</span></li>
-											<li>Average price $30</li>
 										</ul></a></li>
 								<li><a href="detail-restaurant.html"><figure>
 											<img
@@ -443,8 +444,6 @@
 									<h3>Sushi Gold</h3>
 										<small>Old Shire Ln EN9 3RX</small>
 									<ul>
-											<li><span class="ribbon off">-25%</span></li>
-											<li>Average price $20</li>
 										</ul></a></li>
 							</ul>
 						</div>
@@ -467,8 +466,6 @@
 									<h3>Mr. Pepper</h3>
 										<small>27 Old Gloucester St,4563</small>
 									<ul>
-											<li><span class="ribbon off">-30%</span></li>
-											<li>Average price $20</li>
 										</ul></a></li>
 								<li><a href="detail-restaurant.html"><figure>
 											<img
@@ -485,8 +482,6 @@
 									<h3>Dragon Tower</h3>
 										<small>22 Hertsmere Rd E14 4ED</small>
 									<ul>
-											<li><span class="ribbon off">-50%</span></li>
-											<li>Average price $35</li>
 										</ul></a></li>
 								<li><a href="detail-restaurant.html"><figure>
 											<img
@@ -503,8 +498,6 @@
 									<h3>Bella Napoli</h3>
 										<small>135 Newtownards Road BT4</small>
 									<ul>
-											<li><span class="ribbon off">-45%</span></li>
-											<li>Average price $25</li>
 										</ul></a></li>
 							</ul>
 						</div>
@@ -524,7 +517,7 @@
 							<h3>We Deliver to your Office</h3>
 							<p>Enjoy a tasty food in minutes!</p>
 							<a
-								href="grid-listing-filterscol.html"
+								href="discover.jsp"
 								class="btn_1 gradient"
 							>Start Now!</a>
 						</div>
@@ -592,27 +585,26 @@
 						</div>
 						<p class="text-center mt-3 d-block d-lg-none">
 							<a
-								href="#0"
+								href="submitRestaurant.jsp?username=<%=username%>"
 								class="btn_1 medium gradient pulse_bt mt-2"
-							>Register Now!</a>
+							>Join Us</a>
 						</p>
 					</div>
 					<div class="col-lg-5 offset-lg-1 align-self-center">
 						<div class="intro_txt">
 							<div class="main_title">
 								<span><em></em></span>
-								<h2>Start Ordering Now</h2>
+								<h2>Start Your Business Now</h2>
 							</div>
-							<p class="lead">Lorem ipsum dolor sit amet,consectetur
-								adipiscing elit. Sed imperdiet libero id nisi euismod,sed porta
-								est consectetur deserunt.</p>
-							<p>Duis aute irure dolor in reprehenderit in voluptate velit
-								esse cillum dolore eu fugiat nulla pariatur.</p>
+							<p class="lead">Depending on how many locations you have, it’s possible to become an NFWP restaurant partner and start accepting orders in just a few days! 
+							You can begin the process by signing up here. We’re excited to hear from you!</p>
+							<p >A tablet with NFWP Orders helps restaurant partners keep track of new orders, and manage deliveries daily. NFWP Manager software gives deeper access to menus, payment information, 
+							sales data, and customer insights. We have got a tech team making sure both tools are up to speed and running smoothly every day.</p>
 							<p>
 								<a
-									href="#0"
+									href="submitRestaurant.jsp?username=<%=username%>"
 									class="btn_1 medium gradient pulse_bt mt-2"
-								>Register</a>
+								>Join Us</a>
 							</p>
 						</div>
 					</div>
@@ -635,7 +627,7 @@
 						<ul>
 							<li><a href="about.html">About us</a></li>
 							<li><a href="submit-restaurant.html">Add your restaurant</a></li>
-							<li><a href="help.html">Help</a></li>
+							<li><a href="jsp/AskQuestionProcess.jsp?username=<%=username%>">help</a></li>
 							<li><a href="account.html">My account</a></li>
 							<li><a href="blog.html">Blog</a></li>
 							<li><a href="contacts.html">Contacts</a></li>
@@ -649,7 +641,7 @@
 						id="collapse_2"
 					>
 						<ul>
-							<li><a href="grid-listing-filterscol.html">Top
+							<li><a href="discover.jsp">Top
 									Categories</a></li>
 							<li><a href="grid-listing-filterscol-full-masonry.html">Best
 									Rated</a></li>
@@ -667,44 +659,18 @@
 						id="collapse_3"
 					>
 						<ul>
-							<li><i class="icon_house_alt"></i>97845 Baker st. 567<br>Los
-								Angeles - US</li>
-							<li><i class="icon_mobile"></i>+94 423-23-221</li>
-							<li><i class="icon_mail_alt"></i><a href="#0">info@domain.com</a></li>
+							<li><i class="icon_house_alt"></i>6 MetroTech Center, Brooklyn<br>New York - US</li>
+							<li><i class="icon_mobile"></i>+123-456-789</li>
+							<li><i class="icon_mail_alt"></i><a href="#0">nyu@nyu.edu</a></li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-6">
-					<h3 data-target="#collapse_4">Keep in touch</h3>
+
 					<div
 						class="collapse dont-collapse-sm"
 						id="collapse_4"
 					>
-						<div id="newsletter">
-							<div id="message-newsletter"></div>
-							<form
-								method="post"
-								action="assets/newsletter.php"
-								name="newsletter_form"
-								id="newsletter_form"
-							>
-								<div class="form-group">
-									<input
-										type="email"
-										name="email_newsletter"
-										id="email_newsletter"
-										class="form-control"
-										placeholder="Your email"
-									>
-									<button
-										type="submit"
-										id="submit-newsletter"
-									>
-										<i class="arrow_carrot-right"></i>
-									</button>
-								</div>
-							</form>
-						</div>
 						<div class="follow_us">
 							<h5>Follow Us</h5>
 							<ul>
@@ -742,22 +708,6 @@
 			<div class="row add_bottom_25">
 				<div class="col-lg-6">
 					<ul class="footer-selector clearfix">
-						<li><div class="styled-select lang-selector">
-								<select><option
-										value="English"
-										selected
-									>English</option>
-									<option value="French">French</option>
-									<option value="Spanish">Spanish</option>
-									<option value="Russian">Russian</option></select>
-							</div></li>
-						<li><div class="styled-select currency-selector">
-								<select><option
-										value="US Dollars"
-										selected
-									>US Dollars</option>
-									<option value="Euro">Euro</option></select>
-							</div></li>
 						<li><img
 							src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=="
 							data-src="img/cards_all.svg"
@@ -770,9 +720,8 @@
 				</div>
 				<div class="col-lg-6">
 					<ul class="additional_links">
-						<li><a href="#0">Terms and conditions</a></li>
-						<li><a href="http://www.bootstrapmb.com/">Privacy</a></li>
-						<li><span>© FooYes</span></li>
+						<li><a href="https://github.com/AceJW/NYU-ECE9953-FoodDelivery-Web-Project-Spring-2022">Github</a></li>
+						<li><span>Jiahao Wang & Jiazhao Shi</span></li>
 					</ul>
 				</div>
 			</div>
@@ -866,12 +815,5 @@
 	<script src="js/common_scripts.min.js"></script>
 	<script src="js/common_func.js"></script>
 	<script src="assets/validate.js"></script>
-	<!-- Autocomplete -->
-	<script>function initMap(){var input = document.getElementById('autocomplete');var autocomplete = new google.maps.places.Autocomplete(input);autocomplete.addListener('place_changed',function(){var place = autocomplete.getPlace();if(!place.geometry){window.alert("Autocomplete's returned place contains no geometry");return}var address = '';if(place.address_components){address = [(place.address_components[0] && place.address_components[0].short_name || ''),(place.address_components[1] && place.address_components[1].short_name || ''),(place.address_components[2] && place.address_components[2].short_name || '')].join(' ')}})}</script>
-	<script
-		async
-		defer
-		src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places&callback=initMap"
-	></script>
 </body>
 </html>

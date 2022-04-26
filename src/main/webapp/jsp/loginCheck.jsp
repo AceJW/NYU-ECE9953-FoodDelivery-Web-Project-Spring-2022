@@ -39,26 +39,43 @@
 			ResultSet rs = ps.executeQuery();
 			
 			boolean loggedIn = false;
-			
+			String role = null;
 			while(rs.next()) {
-		loggedIn = !rs.wasNull();
+			loggedIn = !rs.wasNull();
+		       if(loggedIn) {
+		    	   role = rs.getString("role");
+		       }
 			}
 			
 			if (loggedIn) {
 				con.close();
-				%>
-				<form method="get" action="home.jsp">
-					<input type="hidden" name="username" value = "<%=username%>" readonly>
-				<%
-					Cookie cookie = new Cookie("nyufoodproject"+username,password);
-				    cookie.setMaxAge(60);
-				    response.addCookie(cookie);
-					response.sendRedirect("home.jsp?username="+username);
-				%>
-				</form>
-				<%
+				if(role.equals("user")) {
+					%>
+					<form method="get" action="home.jsp">
+						<input type="hidden" name="username" value = "<%=username%>" readonly>
+					<%
+						Cookie cookie = new Cookie("nyufoodproject"+username,password);
+					    cookie.setMaxAge(60);
+					    cookie.setPath("/");//share to other website
+					    response.addCookie(cookie);
+						response.sendRedirect("../index.jsp?username="+username);
+					%>
+					</form>
+					<%
+				} else if(role.equals("cr")) {
+					response.sendRedirect("dialogueProcess.jsp");
+				}else if(role.equals("seller")){
+					out.print("seller need a dashboard");//need delete
+					%> <a href="../html/login2.html" class="btn button m-button">
+					<button class="btn_1 gradient" type="submit">Go To Login Page</button>
+					</a><%
+				}
+				
 			} else {
-		out.print("Wrong username or password");
+				out.print("Wrong username or password");
+				%> <a href="../html/login2.html" class="btn button m-button">
+				<button class="btn_1 gradient" type="submit">Go To Login Page</button>
+				</a><%
 			}
 
 			//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
