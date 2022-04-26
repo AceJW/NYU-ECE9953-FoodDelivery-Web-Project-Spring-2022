@@ -1,4 +1,4 @@
-#NYU-CS9053-Final-Project
+#NYU-ECE9953-Advanced-Project
 
 This project is only for presentation and learning.
 
