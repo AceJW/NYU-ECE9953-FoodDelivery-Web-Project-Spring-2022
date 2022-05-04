@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="NYUFood">
     <meta name="author" content="Ansonika">
-    <title>FooYes - Quality delivery or takeaway food</title><!-- Favicons-->
+    <title>NYUFood- Quality delivery or takeaway food</title><!-- Favicons-->
     <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" type="image/x-icon" href="img/apple-touch-icon-57x57-precomposed.png">
     <link rel="apple-touch-icon" type="image/x-icon" sizes="72x72" href="img/apple-touch-icon-72x72-precomposed.png">
@@ -58,10 +58,6 @@
                         <%request.getSession().setAttribute("username", username);%>
                         <%request.getSession().setAttribute("restaurantName", restaurantName);%>
 	                        <div class="main">
-	                            <div class="form-group"><label>Username</label><input class="form-control"
-	                                    placeholder="Username" name = username required></div>	                               
-	                            <div class="form-group"><label>Restaurant Name</label><input class="form-control"
-	                                    placeholder="Restaurant Name" name = "restaurantName" required></div>   
 	                            <div class="form-group"><label>Address</label><input class="form-control"
 	                                    placeholder="Address" name = "address"></div>     
 	                            <div class="form-group"><label>City & State</label><input class="form-control"

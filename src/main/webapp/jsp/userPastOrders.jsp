@@ -67,7 +67,7 @@
 // 			if(username == null) username = "tom";
 			ResultSet rs = null;
 			
-			String query = "SELECT * FROM demo.orders where username='"+username+"' order by Status DESC";
+			String query = "SELECT * FROM demo.orders where username='"+username+"' order by status DESC, time DESC";
 			
 			//Create a Prepared SQL statement allowing you to introduce the parameters of the query
 			PreparedStatement ps = con.prepareStatement(query);

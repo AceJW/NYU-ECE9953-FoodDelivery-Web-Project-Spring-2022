@@ -9,12 +9,13 @@
 <body><%
 		Cookie [] cookies =request.getCookies();
 		for(Cookie cookie: cookies){
-			if((cookie.getName().indexOf("food"))!=-1){
+			if((cookie.getName().indexOf("nyufoodproject"))!=-1){
 				cookie.setMaxAge(0);
+				cookie.setPath("/");
 				response.addCookie(cookie);
 			}
 		}
-		response.sendRedirect("../html/login2.html");
+		response.sendRedirect("../html/login.html");
 		%>
 </body>
 </html>

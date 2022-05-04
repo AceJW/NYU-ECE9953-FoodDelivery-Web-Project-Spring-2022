@@ -118,6 +118,7 @@
 										if((cookie.getName().indexOf("nyufoodproject"))!=-1){//find special format cookie 
 											username=cookie.getName().substring(14);
 											out.print(username+", ");
+											break;
 										}
 									}
 								}
@@ -309,11 +310,6 @@
 											type="radio"
 											name="filter"
 											value="Top-Rated"
-										/><span class="checkmark"></span></label></li>
-									<li><label class="container_radio">Distance<input
-											type="radio"
-											name="filter"
-											value="Distance"
 										/><span class="checkmark"></span></label></li>
 									<li><label class="container_radio">Newest<input 
 											type="radio"

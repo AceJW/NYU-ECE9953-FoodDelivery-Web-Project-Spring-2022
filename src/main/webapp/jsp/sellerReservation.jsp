@@ -37,7 +37,6 @@
 		<tbody>
 			<%
 			String username=request.getParameter("username");
-			username="aa";
 			Cookie [] cookies =request.getCookies();
 			if(cookies!=null){
 				for(Cookie cookie: cookies){
@@ -114,7 +113,7 @@
 <div>
 	
 	
-	<form method="post" action="../index.jsp?username=<%=username%>">
+	<form method="post" action="../sellerDashboard.jsp?username=<%=username%>">
     	
 		<button class="button alert tiny">Go back</button>	
 	</form>	

@@ -38,8 +38,8 @@
 			ps.executeUpdate();
 		
 			con.close();
-			
-			response.sendRedirect("sellerHasOrder.jsp?username="+request.getParameter("restaurant"));
+	    	request.getSession().setAttribute("role", "seller");
+			response.sendRedirect("sellerHasOrder.jsp?restaurant="+request.getParameter("restaurant"));
 		
 			//Close the connection. Don't forget to do it, otherwise you're keeping the resources of the server allocated.
 			con.close();

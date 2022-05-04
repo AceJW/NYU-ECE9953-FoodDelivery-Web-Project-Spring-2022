@@ -82,7 +82,6 @@
 	String referer = request.getHeader("Referer");
 	if(referer != null && referer.indexOf("storeUserProfile.jsp") != -1) {
 		username = request.getParameter("username");
-		username = request.getParameter("username");
 	} else {
 		//Cookie&url username double checker
 		Cookie [] cookies =request.getCookies();
@@ -90,6 +89,7 @@
 			for(Cookie cookie: cookies){
 				if((cookie.getName().indexOf("nyufoodproject"))!=-1){//find special format cookie 
 					username=cookie.getName().substring(14);
+					break;
 // 					out.print(username+", ");
 				}
 			}
@@ -516,7 +516,7 @@
 						data-opacity-mask="rgba(0, 0, 0, 0.3)"
 					>
 						<div>
-							<small>FooYes Delivery</small>
+							<small>Delivery</small>
 							<h3>We Deliver to your Office</h3>
 							<p>Enjoy a tasty food in minutes!</p>
 							<a

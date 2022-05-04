@@ -50,7 +50,7 @@
 
 				ps.executeUpdate();
 				
-				response.sendRedirect("../index.jsp?username="+newUsername);
+				response.sendRedirect("../html/login2.html");
 				//out.print("Username exist!");
 			} catch (Exception ex) {
 				%>			

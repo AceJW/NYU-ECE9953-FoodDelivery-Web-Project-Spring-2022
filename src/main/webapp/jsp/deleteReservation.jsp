@@ -8,7 +8,7 @@
 <title>deletReservation</title>
 </head>
 <body>
-	<%	String username = request.getHeader("username");
+	<%	String username = request.getParameter("username");
 		String id = request.getParameter("id");
 		String referer = request.getHeader("Referer");
 		try {
@@ -30,10 +30,10 @@
 			ps.executeUpdate();
 
 			con.close();
-			if(referer.indexOf("user")!=-1){
-				response.sendRedirect("userReservation.jsp?="+username+"");
+			if(referer.indexOf("userReservation")!=-1){
+				response.sendRedirect("userReservation.jsp?username="+username+"");
 			}else{
-				response.sendRedirect("sellerReservation.jsp?="+username+"");
+				response.sendRedirect("sellerReservation.jsp?username="+username+"");
 			}
 			
 

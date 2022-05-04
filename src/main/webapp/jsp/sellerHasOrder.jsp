@@ -38,9 +38,7 @@
 			String referer = request.getHeader("Referer");
 			if(referer == null) {
 				response.sendRedirect("../html/login2.html");
-			} else if((referer.indexOf("sellerDashboard.jsp")==-1)) {
-				response.sendRedirect("../html/login2.html");
-			}
+			} 
 			String restaurant=request.getParameter("restaurant");
 // 			if(restaurant==null) restaurant = "seller1nyu";
 			
@@ -120,7 +118,7 @@
 	
 	
 	<form method="post" action="../sellerDashboard.jsp?username=<%=request.getParameter("username")%>">
-    	
+    	<% request.getSession().setAttribute("role", "seller");%>
 		<button class="button alert tiny">Go back</button>	
 	</form>	
 </div>
